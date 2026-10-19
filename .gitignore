@@ -1,0 +1,26 @@
+# build output and binaries
+build/
+cmake-build-*/
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.dll.a
+
+# fetched data and logs (regenerate with menu option 1)
+data/*.csv
+logs/*.log
+logs/*.csv
+
+# stray build output and test scratch folders
+build.log
+logs/_*
+
+# editor and local tool settings
+.vscode/
+.idea/
+.claude/settings.local.json
+.DS_Store
+
