@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quant Engine: nothing beat buy-and-hold</title>
+<meta name="description" content="A C++17 engine that backtests trading strategies with walk-forward validation on two years of real Binance data, and reports honestly that none beat buy-and-hold.">
+<meta name="theme-color" content="#ff7a1f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%23ff7a1f%27/%3E%3Crect y=%2716%27 width=%2732%27 height=%2716%27 fill=%27%23050f16%27/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=erode@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 1. The statement -->
+<header class="water" id="top">
+  <div class="field up"></div>
+  <div class="field down"></div>
+
+  <h1 class="hl hl-up lines">
+    <span class="line"><span data-line style="--i:0">Nothing beat</span></span>
+    <span class="line"><span data-line style="--i:1">buy-and-hold.</span></span>
+  </h1>
+
+  <a class="wordmark" href="#top">Quant Engine</a>
+  <a class="button hero-action" href="#ask" data-rise style="--i:3">Ask the engine</a>
+  <p class="hero-sub" data-rise style="--i:2">A C++ engine tested nineteen strategies on two years of hourly Binance data. It reports exactly what it found.</p>
+</header>
+
+<main>
+
+<!-- 2. The live thing: the headline is an input -->
+<section class="ask" id="ask" aria-label="Ask the engine about any strategy">
+  <label class="sr-only" for="q">Type a strategy and a coin</label>
+  <input id="q" class="ask-input" type="text" value="Momentum on BTC" spellcheck="false" autocomplete="off" autocapitalize="off" data-ui>
+  <div id="answer" class="answer" data-ui aria-live="polite" data-reveal style="--i:1">
+<!--ANSWER-->
+<div class="ans-head"><p class="ans-title">Momentum on BTC</p><p class="ans-verdict">Rejected</p></div><dl class="ans-rows"><div><dt>Out-of-sample Sharpe</dt><dd>−1.62</dd></div><div><dt>Buy-and-hold, same hours</dt><dd>−0.03</dd></div><div><dt>Beats buy-and-hold by 0.2</dt><dd>No</dd></div><div><dt>Sharpe above 0.5</dt><dd>No</dd></div><div><dt>Overfit gap at most 1.0</dt><dd>No <span>(2.08)</span></dd></div></dl><p class="ans-foot">190 trades, 67% worst drawdown, 31 test windows</p>
+<!--/ANSWER-->
+  </div>
+  <p class="ask-try" data-reveal style="--i:2">
+    <button type="button" class="try" data-fill="Breakout on SOLUSDT">Breakout on SOLUSDT</button>
+    <button type="button" class="try" data-fill="ETH/BTC pairs trading">ETH/BTC pairs trading</button>
+    <button type="button" class="try" data-fill="ML signal on ETHUSDT">ML signal on ETHUSDT</button>
+    <button type="button" class="try" data-fill="buy and hold">Buy and hold</button>
+  </p>
+</section>
+
+<!-- 3. The method, as one bar -->
+<section class="how" id="how">
+  <h2 class="head" data-reveal>Scored on unseen hours</h2>
+  <ol class="bar" data-ui>
+    <li class="seg seg-1" style="--g:2000;--i:0" data-reveal><div class="seg-box"><p>Two thousand hours</p></div><p class="seg-note">First, every setting is tried on the past and the best one is kept.</p></li>
+    <li class="seg seg-2" style="--g:500;--i:1" data-reveal><div class="seg-box"><p>Five hundred hours</p></div><p class="seg-note">Then it trades hours it has never seen.</p></li>
+    <li class="seg seg-3" style="--g:500;--i:2" data-reveal><div class="seg-box"><p>Five hundred hours</p></div><p class="seg-note">Next, the window slides on and starts flat.</p></li>
+    <li class="seg seg-4" style="--g:500;--i:3" data-reveal><div class="seg-box"><p>Thirty-one windows</p></div><p class="seg-note">Finally, the unseen pieces join into one curve.</p></li>
+  </ol>
+</section>
+
+<!-- 4. A picture, large -->
+<figure class="relief">
+  <div class="relief-frame"><img id="drift" src="assets/wall-street-bubbles-1901.jpg" width="1920" height="1296" alt="Colour cartoon from 1901: a bull in a checked waistcoat blows soap bubbles marked inflated values while a crowd of investors reaches up for them."></div>
+</figure>
+
+<!-- 5. The numbers -->
+<section class="stats" id="result">
+  <div class="stat" data-reveal>
+    <p class="numeral"><span data-count="0">0</span> of <span data-count="19">19</span></p>
+    <p>strategy and coin pairs earned a RECOMMENDED verdict. Each had to beat buy-and-hold by 0.2 Sharpe.</p>
+  </div>
+  <div class="stat" data-reveal style="--i:1">
+    <p class="numeral"><span data-count="5.6" data-dec="1">5.6</span>%</p>
+    <p>of rows on pure random noise passed the same test in our checks. So the thresholds were fixed first.</p>
+  </div>
+
+  <div class="strip" data-ui data-reveal>
+    <p class="strip-title">Every row, by out-of-sample Sharpe ratio. Higher is better.</p>
+<!--STRIP-->
+<div class="plot"><div class="zone" style="--from:80.43"></div>
+<div class="lane"><p class="lane-name">Breakout</p><div class="track"><span class="base" style="--x:66.98%"></span><span class="dot" style="--x:64.80%;--i:0" tabindex="0" aria-label="Breakout on SOL: −0.22 (buy-and-hold −0.12)"><b>SOL: −0.22 (buy-and-hold −0.12)</b></span><span class="base" style="--x:68.95%"></span><span class="dot" style="--x:55.20%;--i:1" tabindex="0" aria-label="Breakout on BTC: −0.66 (buy-and-hold −0.03)"><b>BTC: −0.66 (buy-and-hold −0.03)</b></span><span class="base" style="--x:69.86%"></span><span class="dot" style="--x:59.80%;--i:2" tabindex="0" aria-label="Breakout on ETH: −0.45 (buy-and-hold 0.01)"><b>ETH: −0.45 (buy-and-hold 0.01)</b></span><span class="base" style="--x:73.73%"></span><span class="dot" style="--x:53.82%;--i:3" tabindex="0" aria-label="Breakout on BNB: −0.72 (buy-and-hold 0.19)"><b>BNB: −0.72 (buy-and-hold 0.19)</b></span></div></div>
+<div class="lane"><p class="lane-name">Momentum</p><div class="track"><span class="base" style="--x:73.73%"></span><span class="dot" style="--x:59.81%;--i:4" tabindex="0" aria-label="Momentum on BNB: −0.45 (buy-and-hold 0.19)"><b>BNB: −0.45 (buy-and-hold 0.19)</b></span><span class="base" style="--x:69.86%"></span><span class="dot" style="--x:52.62%;--i:5" tabindex="0" aria-label="Momentum on ETH: −0.78 (buy-and-hold 0.01)"><b>ETH: −0.78 (buy-and-hold 0.01)</b></span><span class="base" style="--x:66.98%"></span><span class="dot" style="--x:54.13%;--i:6" tabindex="0" aria-label="Momentum on SOL: −0.71 (buy-and-hold −0.12)"><b>SOL: −0.71 (buy-and-hold −0.12)</b></span><span class="base" style="--x:68.95%"></span><span class="dot" style="--x:34.36%;--i:7" tabindex="0" aria-label="Momentum on BTC: −1.62 (buy-and-hold −0.03)"><b>BTC: −1.62 (buy-and-hold −0.03)</b></span></div></div>
+<div class="lane"><p class="lane-name">Mean reversion</p><div class="track"><span class="base" style="--x:68.95%"></span><span class="dot" style="--x:58.28%;--i:8" tabindex="0" aria-label="Mean reversion on BTC: −0.52 (buy-and-hold −0.03)"><b>BTC: −0.52 (buy-and-hold −0.03)</b></span><span class="base" style="--x:73.73%"></span><span class="dot" style="--x:57.27%;--i:9" tabindex="0" aria-label="Mean reversion on BNB: −0.57 (buy-and-hold 0.19)"><b>BNB: −0.57 (buy-and-hold 0.19)</b></span><span class="base" style="--x:66.98%"></span><span class="dot" style="--x:50.86%;--i:10" tabindex="0" aria-label="Mean reversion on SOL: −0.86 (buy-and-hold −0.12)"><b>SOL: −0.86 (buy-and-hold −0.12)</b></span><span class="base" style="--x:69.86%"></span><span class="dot" style="--x:49.84%;--i:11" tabindex="0" aria-label="Mean reversion on ETH: −0.91 (buy-and-hold 0.01)"><b>ETH: −0.91 (buy-and-hold 0.01)</b></span></div></div>
+<div class="lane"><p class="lane-name">ML signal</p><div class="track"><span class="base" style="--x:66.98%"></span><span class="dot" style="--x:42.21%;--i:12" tabindex="0" aria-label="ML signal on SOL: −1.26 (buy-and-hold −0.12)"><b>SOL: −1.26 (buy-and-hold −0.12)</b></span><span class="base" style="--x:73.73%"></span><span class="dot" style="--x:27.63%;--i:13" tabindex="0" aria-label="ML signal on BNB: −1.93 (buy-and-hold 0.19)"><b>BNB: −1.93 (buy-and-hold 0.19)</b></span><span class="base" style="--x:68.95%"></span><span class="dot" style="--x:18.30%;--i:14" tabindex="0" aria-label="ML signal on BTC: −2.36 (buy-and-hold −0.03)"><b>BTC: −2.36 (buy-and-hold −0.03)</b></span><span class="base" style="--x:69.86%"></span><span class="dot" style="--x:17.94%;--i:15" tabindex="0" aria-label="ML signal on ETH: −2.37 (buy-and-hold 0.01)"><b>ETH: −2.37 (buy-and-hold 0.01)</b></span></div></div>
+<div class="lane"><p class="lane-name">Pairs trading</p><div class="track"><span class="base" style="--x:68.33%"></span><span class="dot" style="--x:30.14%;--i:16" tabindex="0" aria-label="Pairs trading on SOL/ETH: −1.81 (buy-and-hold −0.06)"><b>SOL/ETH: −1.81 (buy-and-hold −0.06)</b></span><span class="base" style="--x:69.75%"></span><span class="dot" style="--x:10.00%;--i:17" tabindex="0" aria-label="Pairs trading on ETH/BTC: −2.74 (buy-and-hold 0.01)"><b>ETH/BTC: −2.74 (buy-and-hold 0.01)</b></span><span class="base" style="--x:71.95%"></span><span class="dot" style="--x:15.42%;--i:18" tabindex="0" aria-label="Pairs trading on BNB/ETH: −2.49 (buy-and-hold 0.11)"><b>BNB/ETH: −2.49 (buy-and-hold 0.11)</b></span></div></div>
+<div class="axis"><p class="lane-name"></p><div class="track"><span style="--x:4.35%">−3</span><span style="--x:26.09%">−2</span><span style="--x:47.83%">−1</span><span style="--x:69.57%">0</span><span style="--x:80.43%">0.5</span><span style="--x:91.30%">1</span></div></div></div>
+<!--/STRIP-->
+    <ul class="legend">
+      <li><i class="k-dot"></i>A strategy on one coin or pair</li>
+      <li><i class="k-base"></i>Buy-and-hold on the same hours</li>
+    </ul>
+    <p class="strip-note">The shaded block is where a RECOMMENDED verdict would sit. It is empty.</p>
+  </div>
+</section>
+
+<!-- 6. The oldest share -->
+<section class="oldest">
+  <figure class="oldest-pic" data-reveal>
+    <img src="assets/voc-share-1606-left-page.jpg" width="913" height="1329" loading="lazy" alt="Left page of a handwritten and printed share record dated 9 September 1606, issued by the Enkhuizen chamber of the Dutch East India Company.">
+    <figcaption>The oldest known share record, 9 September 1606, Dutch East India Company, Enkhuizen. Public domain, via <a href="https://commons.wikimedia.org/wiki/File:VOC_aandeel_9_september_1606.jpg">Wikimedia Commons</a>.</figcaption>
+  </figure>
+  <div class="oldest-text" data-reveal style="--i:1">
+    <p class="statement">In 1606 you bought a share and waited. This project asks whether any rule has beaten that since.</p>
+  </div>
+</section>
+
+<!-- 7. Names as one sentence -->
+<section class="proof" id="tried">
+  <p class="names" data-reveal><span class="lead-in">Six ideas were tested:</span> <span class="name">buy-and-hold,</span> <span class="name">mean reversion,</span> <span class="name">momentum,</span> <span class="name">breakout,</span> <span class="name">pairs trading,</span> <span class="name">a logistic regression.</span></p>
+</section>
+
+<!-- 8. The full result, one size -->
+<section class="list" id="rows">
+  <table class="rows">
+    <thead><tr><th scope="col">Coin or pair</th><th scope="col">Out-of-sample Sharpe</th><th scope="col">Buy-and-hold Sharpe</th><th scope="col">Verdict</th></tr></thead>
+<!--TABLE-->
+<tbody>
+<tr class="grp"><th scope="colgroup" colspan="4">Breakout</th></tr>
+<tr data-reveal style="--i:0"><td>SOL</td><td class="nums">−0.22</td><td class="nums">−0.12</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BTC</td><td class="nums">−0.66</td><td class="nums">−0.03</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>ETH</td><td class="nums">−0.45</td><td class="nums">0.01</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BNB</td><td class="nums">−0.72</td><td class="nums">0.19</td><td>Rejected</td></tr>
+</tbody>
+<tbody>
+<tr class="grp"><th scope="colgroup" colspan="4">Momentum</th></tr>
+<tr data-reveal style="--i:0"><td>BNB</td><td class="nums">−0.45</td><td class="nums">0.19</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>ETH</td><td class="nums">−0.78</td><td class="nums">0.01</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>SOL</td><td class="nums">−0.71</td><td class="nums">−0.12</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BTC</td><td class="nums">−1.62</td><td class="nums">−0.03</td><td>Rejected</td></tr>
+</tbody>
+<tbody>
+<tr class="grp"><th scope="colgroup" colspan="4">Mean reversion</th></tr>
+<tr data-reveal style="--i:0"><td>BTC</td><td class="nums">−0.52</td><td class="nums">−0.03</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BNB</td><td class="nums">−0.57</td><td class="nums">0.19</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>SOL</td><td class="nums">−0.86</td><td class="nums">−0.12</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>ETH</td><td class="nums">−0.91</td><td class="nums">0.01</td><td>Rejected</td></tr>
+</tbody>
+<tbody>
+<tr class="grp"><th scope="colgroup" colspan="4">ML signal</th></tr>
+<tr data-reveal style="--i:0"><td>SOL</td><td class="nums">−1.26</td><td class="nums">−0.12</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BNB</td><td class="nums">−1.93</td><td class="nums">0.19</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BTC</td><td class="nums">−2.36</td><td class="nums">−0.03</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>ETH</td><td class="nums">−2.37</td><td class="nums">0.01</td><td>Rejected</td></tr>
+</tbody>
+<tbody>
+<tr class="grp"><th scope="colgroup" colspan="4">Pairs trading</th></tr>
+<tr data-reveal style="--i:0"><td>SOL/ETH</td><td class="nums">−1.81</td><td class="nums">−0.06</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>ETH/BTC</td><td class="nums">−2.74</td><td class="nums">0.01</td><td>Rejected</td></tr>
+<tr data-reveal style="--i:0"><td>BNB/ETH</td><td class="nums">−2.49</td><td class="nums">0.11</td><td>Rejected</td></tr>
+</tbody>
+
+<!--/TABLE-->
+  </table>
+</section>
+
+<!-- 9. One word is the button -->
+<a class="cta" href="#run" id="build">
+  <span class="cta-note">Compile with CMake, then double-click run_quant.bat.</span>
+  <svg class="cta-arrow" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><path d="M12 36 36 12M16 12h20v20" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+  <span class="cta-word">Build</span>
+</a>
+
+</main>
+
+<!-- 10. The way in -->
+<footer class="foot" id="run">
+  <div class="foot-top">
+    <p class="foot-quant">Quant Engine</p>
+    <p>C++17, CMake, libcurl. Windows with MSYS2 UCRT64.</p>
+    <p><code>cmake -S . -B build -G Ninja</code><br><code>cmake --build build</code></p>
+    <p>Signals and backtests only. No orders, no API keys. Research output, not financial advice.</p>
+    <a class="link-plain foot-up" href="#top">Back to top</a>
+  </div>
+  <a class="foot-line" href="../README.md#quick-start-double-click">run_quant.bat</a>
+  <div class="foot-meta">
+    <p><a class="link-plain" href="../README.md">README</a> and <a class="link-plain" href="../docs/VIVA_NOTES.md">viva notes</a></p>
+    <p>Pictures, public domain, via Wikimedia Commons: <a class="link-plain" href="https://commons.wikimedia.org/wiki/File:Wall_Street_bubbles_-_Always_the_same_-_Keppler_1901.jpg">Puck, 1901</a> and the <a class="link-plain" href="https://commons.wikimedia.org/wiki/File:VOC_aandeel_9_september_1606.jpg">VOC share, 1606</a>.</p>
+    <p>OOP course project, VIT Pune, 2026</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="answer.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

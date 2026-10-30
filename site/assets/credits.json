@@ -1,0 +1,50 @@
+[
+ {
+  "file": "assets/voc-share-1606-left-page.jpg",
+  "media": "image",
+  "ref": "commons:13358504",
+  "title": "VOC aandeel 9 september 1606",
+  "creator": "VOC",
+  "creatorUrl": null,
+  "date": "1606-09-09",
+  "license": "public domain",
+  "licenseCode": "pd",
+  "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "creditRequired": false,
+  "page": "https://commons.wikimedia.org/wiki/File:VOC_aandeel_9_september_1606.jpg",
+  "via": "Wikimedia Commons",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/e/ed/VOC_aandeel_9_september_1606.jpg",
+  "width": 1826,
+  "height": 1329,
+  "bytes": 2063087,
+  "credit": "\"VOC aandeel 9 september 1606\" by VOC, public domain, via Wikimedia Commons",
+  "notes": [
+   "cropped to the left page, recompressed"
+  ],
+  "saved": "2026-10-29T20:16:54.266Z"
+ },
+ {
+  "file": "assets/wall-street-bubbles-1901.jpg",
+  "media": "image",
+  "ref": "commons:26163771",
+  "title": "Wall Street bubbles - Always the same - Keppler 1901",
+  "creator": "Udo Keppler",
+  "creatorUrl": null,
+  "date": "1901-05-22",
+  "license": "public domain",
+  "licenseCode": "pd",
+  "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "creditRequired": false,
+  "page": "https://commons.wikimedia.org/wiki/File:Wall_Street_bubbles_-_Always_the_same_-_Keppler_1901.jpg",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Wall_Street_bubbles_-_Always_the_same_-_Keppler_1901.jpg/1920px-Wall_Street_bubbles_-_Always_the_same_-_Keppler_1901.jpg",
+  "width": 1920,
+  "height": 1296,
+  "bytes": 856099,
+  "credit": "\"Wall Street bubbles - Always the same - Keppler 1901\" by Udo Keppler, public domain, via Wikimedia Commons",
+  "notes": [
+   "recompressed"
+  ],
+  "saved": "2026-10-29T20:16:55.193Z"
+ }
+]

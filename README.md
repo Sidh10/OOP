@@ -77,6 +77,13 @@ fixed in code on purpose, so they cannot be tuned after seeing results.
 Strategies: BuyAndHold (baseline), MeanReversion, Momentum, Breakout, PairsTrading (rolling OLS or Kalman hedge ratio),
 MLSignal (logistic regression, optionally updated online).
 
+## Showcase page
+
+`site/index.html` is a one-page presentation of the project and its result (open the file in a browser; it needs no
+server). It is a static page, separate from the engine: the CLI stays the only way to run anything. The numbers on it
+come straight from `reports/latest_recommendation.csv`; after a new run of menu option 4, refresh them with
+`node site/build.mjs` (Node 22 or newer).
+
 ## Honest limits
 
 * Backtests overfit. Walk-forward reduces this but does not remove it, and with many strategies, parameters and

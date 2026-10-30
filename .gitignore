@@ -24,3 +24,7 @@ logs/_*
 .claude/settings.local.json
 .DS_Store
 
+# design tooling output
+.taste-skill/
+.playwright-mcp/
+*.png.tmp
