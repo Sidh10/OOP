@@ -1,4 +1,4 @@
-// Tiny test harness (D-009): auto-registering TEST cases, a few CHECK macros.
+// Tiny test harness: auto-registering TEST cases, a few CHECK macros.
 // Failures are counted and reported; the runner in test_main.cpp returns non-zero.
 #pragma once
 

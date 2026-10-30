@@ -10,7 +10,7 @@
 namespace quant {
 
 // Runtime settings: starts from Defaults.hpp, optionally overridden by config.txt.
-// Verdict thresholds are deliberately NOT configurable (D-011).
+// Verdict thresholds are deliberately NOT configurable.
 struct Config {
     std::vector<std::string> symbols = defaults::symbols;
     std::vector<std::pair<std::string, std::string>> pairs = defaults::pairs;

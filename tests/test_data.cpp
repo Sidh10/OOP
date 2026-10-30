@@ -257,7 +257,7 @@ TEST(csv_gap_is_counted_not_fatal) {
 
 // Regression: a 5-day cache used to stay 5 days long after asking for 730, because update() only
 // appended after the last cached bar. Now a cache that starts later than the requested history
-// is rebuilt from the start of the requested range (D-024).
+// is rebuilt from the start of the requested range.
 TEST(datacache_rebuilds_cache_that_does_not_cover_requested_history) {
     Logger::setConsoleEnabled(false);
     const int64_t now = nowMs();

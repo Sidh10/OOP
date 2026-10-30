@@ -2,7 +2,7 @@
 
 C++17, OOP. Data: Binance public market-data API (no key). Platform: Windows / MinGW (MSYS2 UCRT64). Interface: CLI menu.
 
-> Companion files: `SPEC.md` (exact behaviour and tests, wins on behaviour), `TASKLIST.md` (work queue), `CLAUDE.md` (working rules), `DECISIONS.md`. This file is the plan; the build records any divergence in `DECISIONS.md` and an "As built" section added at the end (T6.3).
+> Companion file: `SPEC.md` (exact behaviour and tests, wins on behaviour). This file is the plan; the "As built" section at the end records where the finished code differs from it.
 
 ## 1. What the system does
 
@@ -257,9 +257,7 @@ quant_engine/
 
 ## 7. Stage plan
 
-Detailed tasks and the automated gate commands live in `TASKLIST.md`.
-
-| Stage | Deliverable | Gate (automated, real output recorded in TASKLIST.md) |
+| Stage | Deliverable | Gate |
 |---|---|---|
 | 0 | Toolchain check, vendored JSON header, CMake, test harness | Clean build + `ctest` green |
 | 1 | This document | Approved by Sidh (done) |
@@ -277,24 +275,24 @@ Detailed tasks and the automated gate commands live in `TASKLIST.md`.
 
 ## 9. As built (written at T6.3; the sections above are the original plan)
 
-The plan held up: the class hierarchy, the concept map and the stage plan were followed. These are the real differences and additions, with the reason (details and dates in `DECISIONS.md`).
+The plan held up: the class hierarchy, the concept map and the stage plan were followed. These are the real differences and additions, with the reason.
 
 **Layout.** `include/quant/<module>/` and `src/<module>/` as planned, plus `Defaults.hpp`, `Config.hpp`/`src/Config.cpp`, `core/Logger`, `core/TimeUtil`, `core/FileUtil`, `research/ParameterGrid`, `strategies/ParamSet`, `strategies/MarketView`. Related small classes share a file: indicators in `Indicators.hpp/.cpp`, models in `Models.hpp/.cpp`, simple strategies in `SimpleStrategies`, pairs and ML in `AdvancedStrategies`. `tools/` holds temporary dev drivers (see below).
 
 **Core.** `Candle` also stores `closeTime` (needed to drop the still-forming candle). `RollingWindow<T>` is a vector ring buffer with periodic exact recomputation, not a `deque`. `<numeric>` is used only for `accumulate` in `PerformanceMetrics`.
 
-**Data.** Retry logic (429, 418, base-URL fallback, page pause) lives in `BinanceDataSource::request`, not in `CurlHttpClient`, so it is testable with `MockHttpClient`; the clock and sleep are injectable (D-017). `DataCache` rebuilds a cache that is shorter than the requested history (D-024).
+**Data.** Retry logic (429, 418, base-URL fallback, page pause) lives in `BinanceDataSource::request`, not in `CurlHttpClient`, so it is testable with `MockHttpClient`; the clock and sleep are injectable. `DataCache` rebuilds a cache that is shorter than the requested history.
 
 **Indicators and models.** `Indicator::update(Candle)` as planned, with a `PriceIndicator` middle class for close-only indicators. `Model` exposes `update(x, y)`, `predict(x)`, `fit(X, y)` and `reset()`; `RollingOLS` and `KalmanFilter` add scalar `update(double, double)` overloads to avoid allocating a vector per bar. A report-only `dickeyFullerStat` function was added for pairs.
 
-**Strategies.** `MarketView(data, begin, index)` shows only bars `begin..index` (D-021). `Strategy` has `reset()`, `warmupBars()` and a protected `applyParams()` in addition to the planned methods. `BuyAndHold` is equal-weight over its universe, so the baseline for a pair is a 50/50 holding (D-028). Pairs hedge ratios are frozen at entry and the Kalman z is standardised by its own rolling std (D-025, D-027). Parameter grids are stored in `StrategyFactory`.
+**Strategies.** `MarketView(data, begin, index)` shows only bars `begin..index`. `Strategy` has `reset()`, `warmupBars()` and a protected `applyParams()` in addition to the planned methods. `BuyAndHold` is equal-weight over its universe, so the baseline for a pair is a 50/50 holding. Pairs hedge ratios are frozen at entry and the Kalman z is standardised by its own rolling std. Parameter grids are stored in `StrategyFactory`.
 
-**Engine.** `Portfolio` works on asset slots (vectors) instead of a `map` keyed by symbol, and the `Backtester` owns the strategy and re-trades a slot only when its target weight changes (D-020). `CostModel` exposes `feeRate()` and `slippageRate()`. Trade episodes and `BacktestResult` fields are in `BacktestResult.hpp` (D-022).
+**Engine.** `Portfolio` works on asset slots (vectors) instead of a `map` keyed by symbol, and the `Backtester` owns the strategy and re-trades a slot only when its target weight changes. `CostModel` exposes `feeRate()` and `slippageRate()`. Trade episodes and `BacktestResult` fields are in `BacktestResult.hpp`.
 
 **Research.** `WalkForwardOptimizer::run` returns a `WalkForwardReport`; `StrategyRecommender::rank` also computes pair diagnostics; `ReportWriter` writes/reads the CSV and prints the console report with caveats.
 
 **Live and UI.** `LiveRunner` takes an `IDataSource`, catches up on missed candles, and uses a static atomic stop flag for Ctrl-C. `MenuApp` takes the HTTP client and streams by injection; `runCli` parses `--live/--once/--shadow/--config`.
 
-**Build.** `CMakeLists.txt` builds the `quant_core` static library, `quant_engine` and `quant_tests` (one ctest entry), pins Release to `-O2`, and on Windows copies the runtime DLLs (libcurl and its dependencies, libstdc++) next to the executables with `cmake/copy_runtime_dlls.cmake`. While CMake and libcurl were missing (2026-10-06 to 2026-10-18) the code was built with a temporary `Makefile.dev` and a curl.exe-based dev transport; both were deleted once the CMake/libcurl build was verified (D-030).
+**Build.** `CMakeLists.txt` builds the `quant_core` static library, `quant_engine` and `quant_tests` (one ctest entry), pins Release to `-O2`, and on Windows copies the runtime DLLs (libcurl and its dependencies, libstdc++) next to the executables with `cmake/copy_runtime_dlls.cmake`. While CMake and libcurl were missing (2026-10-06 to 2026-10-18) the code was built with a temporary `Makefile.dev` and a curl.exe-based dev transport; both were deleted once the CMake/libcurl build was verified.
 
 **Results on real data (2 years of 1h bars, BTC/ETH/BNB/SOL and 3 pairs).** 19 (universe, strategy) rows, all `REJECT`: no strategy beat buy-and-hold out of sample after 12 bps per side. The system is built so this is a valid answer.

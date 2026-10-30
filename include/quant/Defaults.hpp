@@ -6,7 +6,7 @@
 #include <vector>
 
 // Single place for every default (SPEC section 0). config.txt can override the
-// tunable ones; the verdict thresholds are fixed up front (D-011) and are not
+// tunable ones; the verdict thresholds are fixed up front and are not
 // meant to be tuned after looking at out-of-sample results.
 namespace quant::defaults {
 

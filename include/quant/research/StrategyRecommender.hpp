@@ -31,7 +31,7 @@ struct Recommendation {
     std::string periodStart, periodEnd;
 };
 
-// Report-only statistic for pairs (never used to gate trading, D-010).
+// Report-only statistic for pairs (never used to gate trading).
 struct PairDiagnostic {
     std::string pair;
     double beta = 0;     // full-sample OLS hedge ratio

@@ -74,7 +74,7 @@ private:
 };
 
 // Dickey-Fuller t-statistic for x_t: regress dx_t = a + g * x_{t-1} + e and return t(g).
-// Report-only diagnostic (D-010). Compare with MacKinnon / Engle-Granger critical values:
+// Report-only diagnostic. Compare with MacKinnon / Engle-Granger critical values:
 // roughly -3.34 at 5% for a two-variable residual with a constant (approximate).
 double dickeyFullerStat(const std::vector<double>& x);
 

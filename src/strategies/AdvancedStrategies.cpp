@@ -58,7 +58,7 @@ std::vector<TargetWeight> PairsTradingStrategy::onBar(const MarketView& view) {
         if (kf_.count() >= window_) {  // let the filter settle for `window` bars first
             // Standardise the innovation by its own rolling mean/std (scale free, like the OLS z).
             // e / sqrt(Q) alone has RMS ~0.1 on real hourly data because Q >= Ve, so it never
-            // reaches entryZ (D-025).
+            // reaches entryZ.
             spread_->push(kf_.innovation());
             if (spread_->full()) {
                 const double sd = spread_->stddev();
